@@ -116,7 +116,7 @@ This project is licensed under the MIT License. See LICENSE for details.
 
 ## 🌐 Links & Resources
 
-- ![ExcaliburJS Official Site](www.excaliburjs.com)
+- [ExcaliburJS Official Site](www.excaliburjs.com)
 - ![Project GDD Documentation](GDD.md)
 - ![Subsystem Interface Diagrams](systemInterfaces.md)
 - ![Event/Signal API Reference](./src/lib/Signals.ts)
