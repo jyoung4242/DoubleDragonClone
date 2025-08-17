@@ -1,10 +1,12 @@
 // main.ts
 import "./style.css";
 import { GamepadManager, GamepadSignal } from "./Lib/Gamepad";
+import { ExFSM, ExState, FSMResult } from "./Lib/ExFSM";
 
 import { UI } from "@peasy-lib/peasy-ui";
-import { Engine, DisplayMode } from "excalibur";
+import { Engine, DisplayMode, Keys } from "excalibur";
 import { model, template } from "./UI/UI";
+import { KeyboardManager, KeyboardSignal } from "./Lib/Keyboard";
 
 await UI.create(document.body, model, template).attached;
 
@@ -18,6 +20,7 @@ const game = new Engine({
 
 await game.start();
 const gamepad = new GamepadManager(game, 0.4);
+const keyboard = new KeyboardManager(game);
 
 GamepadSignal.listen((event: CustomEvent) => {
   // event.detail.params contains [gamepadIndex, type, ...data]
@@ -39,4 +42,12 @@ GamepadSignal.listen((event: CustomEvent) => {
   }
 });
 
-game.onPreUpdate = (engine: Engine, elapsed: number) => gamepad.update(elapsed);
+game.onPreUpdate = (engine: Engine, elapsed: number) => {
+  gamepad.update(elapsed);
+  keyboard.update(elapsed);
+};
+
+KeyboardSignal.listen((data: CustomEvent) => {
+  const [type, key] = data.detail.params;
+  console.log(type, key);
+});
