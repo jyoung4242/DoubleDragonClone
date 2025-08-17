@@ -1,4 +1,4 @@
-# Contributing to Grounded Beat ’Em Up Engine
+# Contributing to Path of the Fist
 
 Thank you for your interest in contributing! We welcome contributions of all kinds: bug fixes, new features, documentation, and design
 improvements. This document will guide you through the process and help keep contributions consistent and high-quality.
