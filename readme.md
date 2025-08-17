@@ -1,6 +1,6 @@
 # Path of the Fist
 
-![Project Logo Placeholder](./logo.png)
+![Project Logo Placeholder](./Logo.png)
 
 **Path of the Fist** is an open-source, modular framework for creating fast-paced, combo-driven arena combat games with hub-based level
 design, recruitable party members, collectible-driven progression, and narrative-driven dialogues. Inspired by classic beat ’em ups
