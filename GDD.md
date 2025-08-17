@@ -7,9 +7,7 @@
 1. **Fast-Paced Arena Combat** – Fluid, combo-driven action with striking, grappling, throws, dodges, and tag-team mechanics.
 2. **Dynamic Enemy Pressure** – Enemies are relentless, adaptive, and integrate environmental interactions.
 3. **Strategic Progression** – Core and unique skill trees, collectibles, and augment systems feed meaningful character growth.
-4. **Replayability Through Variation** – Hub-based semi-open areas, recruitable characters, and skill-based collectibles encourage
-   multiple playthroughs.
-5. **Collectibles & Team Building** – Unlock characters, moves, augments, lore, and combo hints through exploration and completing
+4. **Collectibles & Team Building** – Unlock characters, moves, augments, lore, and combo hints through exploration and completing
    challenges.
 
 ---
