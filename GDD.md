@@ -1,4 +1,4 @@
-# Beat ’Em Up Game Design Document (Working Title)
+# Path of the Fist
 
 ---
 
