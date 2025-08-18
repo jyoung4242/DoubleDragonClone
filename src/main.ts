@@ -1,12 +1,13 @@
 // main.ts
 import "./style.css";
-import { GamepadManager, GamepadSignal } from "./Lib/Gamepad";
-import { ExFSM, ExState, FSMResult } from "./Lib/ExFSM";
-
+import { GamepadManager } from "./Lib/Gamepad";
 import { UI } from "@peasy-lib/peasy-ui";
-import { Engine, DisplayMode, Keys } from "excalibur";
+import { Engine, DisplayMode, Color } from "excalibur";
 import { model, template } from "./UI/UI";
-import { KeyboardManager, KeyboardSignal } from "./Lib/Keyboard";
+import { KeyboardManager } from "./Lib/Keyboard";
+import { TutorialSection1 } from "./Scenes/TutorialSection1";
+
+import { loader } from "./resources";
 
 await UI.create(document.body, model, template).attached;
 
@@ -15,39 +16,13 @@ const game = new Engine({
   height: 600, // the height of the canvas
   canvasElementId: "cnv", // the DOM canvas element ID, if you are providing your own
   displayMode: DisplayMode.Fixed, // the display mode
+  backgroundColor: Color.Gray,
   pixelArt: true,
+  scenes: { tutScene1: { scene: TutorialSection1 } },
 });
 
-await game.start();
 const gamepad = new GamepadManager(game, 0.4);
-const keyboard = new KeyboardManager(game);
+const keyboard = new KeyboardManager(game, 0.4);
 
-GamepadSignal.listen((event: CustomEvent) => {
-  // event.detail.params contains [gamepadIndex, type, ...data]
-  const [gpIndex, type, ...data] = event.detail.params;
-
-  if (type === "buttonPressed") {
-    const [buttonIndex] = data;
-    console.log(`Gamepad ${gpIndex}: Button ${buttonIndex} pressed`);
-  } else if (type === "buttonHeld") {
-    const [buttonIndex] = data;
-    // Optional: handle continuous holding
-    console.log(`Gamepad ${gpIndex}: Button ${buttonIndex} held`);
-  } else if (type === "buttonReleased") {
-    const [buttonIndex] = data;
-    console.log(`Gamepad ${gpIndex}: Button ${buttonIndex} released`);
-  } else if (type === "leftStick" || type === "rightStick") {
-    const [dir] = data;
-    console.log(`Gamepad ${gpIndex}: ${type} direction=${dir}`);
-  }
-});
-
-game.onPreUpdate = (engine: Engine, elapsed: number) => {
-  gamepad.update(elapsed);
-  keyboard.update(elapsed);
-};
-
-KeyboardSignal.listen((data: CustomEvent) => {
-  const [type, key] = data.detail.params;
-  console.log(type, key);
-});
+await game.start(loader);
+game.goToScene("tutScene1", { sceneActivationData: { gpad: gamepad, kman: keyboard } });

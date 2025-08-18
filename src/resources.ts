@@ -1,13 +1,19 @@
 // resources.ts
 import { ImageSource, Loader, Sprite, SpriteSheet } from "excalibur";
-import myImageResource from './Assets/myImage.png' // replace this
+import tutorialLevel from "./Assets/level1DD.png"; // replace this
+import playerWalk from "./Assets/player Walk SS.png"; // replace this
+import playerPunch from "./Assets/playerPunch.png";
+import playerLadder from "./Assets/playerLadder.png";
 
 export const Resources = {
-   myImage: new ImageSource(myImageResource),
+  tutorialLevel: new ImageSource(tutorialLevel),
+  playerWalk: new ImageSource(playerWalk),
+  playerPunch: new ImageSource(playerPunch),
+  playerLadder: new ImageSource(playerLadder),
 };
 
 export const loader = new Loader();
 
 for (let res of Object.values(Resources)) {
-   loader.addResource(res);
+  loader.addResource(res);
 }
