@@ -3,6 +3,7 @@ import { Player } from "../Actors/Player";
 import { TutorialLevel } from "../Actors/TutorialLevel";
 import { GamepadManager } from "../Lib/Gamepad";
 import { KeyboardManager } from "../Lib/Keyboard";
+import { RedBarrel } from "../Actors/redBarrel";
 
 export class TutorialSection1 extends Scene {
   gpad: GamepadManager | undefined;
@@ -13,6 +14,7 @@ export class TutorialSection1 extends Scene {
     this.map = new TutorialLevel();
     this.add(this.map);
     this.add(new Player());
+    this.add(new RedBarrel(vec(600, 25)));
   }
 
   onActivate(context: SceneActivationContext<{ gpad: GamepadManager; kman: KeyboardManager }>): void {

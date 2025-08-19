@@ -32,7 +32,7 @@ export class GamepadManager {
 
     // Connect events
     engine.input.gamepads.on("connect", (evt: GamepadConnectEvent) => {
-      console.log("Gamepad connected:", evt.index);
+      // console.log("Gamepad connected:", evt.index);
       const gp = engine.input.gamepads.at(evt.index);
 
       const state: GamepadState = {
@@ -48,7 +48,7 @@ export class GamepadManager {
 
     // Disconnect events
     engine.input.gamepads.on("disconnect", (evt: GamepadDisconnectEvent) => {
-      console.log("Gamepad disconnected:", evt.index);
+      // console.log("Gamepad disconnected:", evt.index);
       this.gamepads.delete(evt.index);
     });
   }

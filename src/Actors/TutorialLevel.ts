@@ -14,21 +14,21 @@ let tutorialLevelSS = SpriteSheet.fromImageSource({
 
 export class TutorialLevel extends Actor {
   constructor() {
-    const floorCollider = Shape.Box(1280, 10, Vector.Zero, vec(0, 192 / 2));
+    const floorCollider = Shape.Box(1050, 10, Vector.Zero, vec(0, 192 / 2 - 2));
     const leftWallCollider = Shape.Box(5, 192, Vector.Zero, vec(-8, -192 / 2));
-    const top1Collider = Shape.Box(360, 5, Vector.Zero, vec(0, -10));
-    const top2Collider = Shape.Box(75, 33, Vector.Zero, vec(389, -38));
+    const top1Collider = Shape.Box(360, 5, Vector.Zero, vec(0, 32));
+    const top2Collider = Shape.Box(75, 75, Vector.Zero, vec(389, -38));
     const top3Collider = Shape.Box(10, 5, Vector.Zero, vec(500, -10));
-    const top4Collider = Shape.Box(200, 5, Vector.Zero, vec(520, -40));
-    const top5Collider = Shape.Box(75, 5, Vector.Zero, vec(765, -10));
-    const top6Collider = Shape.Box(120, 5, Vector.Zero, vec(855, 10));
-    const edge1Collider = new EdgeCollider({ begin: vec(510, -10), end: vec(550, -50) });
-    const edge2Collider = new EdgeCollider({ begin: vec(720, -50), end: vec(760, -10) });
-    const edge3Collider = new EdgeCollider({ begin: vec(840, -10), end: vec(855, 15) });
-    const edge4Collider = new EdgeCollider({ begin: vec(980, 10), end: vec(1060, 192 / 2) });
-    const ladder1Collider = Shape.Box(5, 80, Vector.Zero, vec(355, -100));
-    const ladder2Collider = Shape.Box(5, 80, Vector.Zero, vec(495, -100));
-    const ladderTopCollider = Shape.Box(125, 5, Vector.Zero, vec(355, -91));
+    const top4Collider = Shape.Box(195, 5, Vector.Zero, vec(540, 0));
+    const top5Collider = Shape.Box(80, 5, Vector.Zero, vec(765, 30));
+    const top6Collider = Shape.Box(115, 5, Vector.Zero, vec(865, 43));
+    const edge1Collider = new EdgeCollider({ begin: vec(515, 35), end: vec(548, 7) });
+    const edge2Collider = new EdgeCollider({ begin: vec(740, 5), end: vec(768, 35) });
+    const edge3Collider = new EdgeCollider({ begin: vec(850, 35), end: vec(865, 48) });
+    const edge4Collider = new EdgeCollider({ begin: vec(978, 48), end: vec(1030, 192 / 2) });
+    const ladder1Collider = Shape.Box(5, 80, Vector.Zero, vec(355, -45));
+    const ladder2Collider = Shape.Box(20, 80, Vector.Zero, vec(495, -45));
+    const ladderTopCollider = Shape.Box(125, 5, Vector.Zero, vec(365, -55));
 
     const compositeCollider = new CompositeCollider([
       floorCollider,
@@ -49,7 +49,7 @@ export class TutorialLevel extends Actor {
     ]);
     super({
       name: "tutorialLevel",
-      z: -1,
+      z: -1000,
       pos: vec(0, 0),
       anchor: vec(0.0, 0.5),
       collider: compositeCollider,
@@ -58,8 +58,8 @@ export class TutorialLevel extends Actor {
     });
     this.addTag("map");
 
-    const ladder1 = new ladderChild(vec(370, -22));
-    const ladder2 = new ladderChild(vec(480, -22));
+    const ladder1 = new ladderChild(vec(370, 0));
+    const ladder2 = new ladderChild(vec(480, 0));
     this.addChild(ladder1);
     this.addChild(ladder2);
   }
@@ -72,7 +72,7 @@ export class TutorialLevel extends Actor {
 class ladderChild extends Actor {
   name = "ladder";
   constructor(pos: Vector) {
-    super({ width: 25, height: 30, pos, collisionType: CollisionType.Passive, collisionGroup: ladderCollider });
+    super({ width: 25, height: 75, pos, collisionType: CollisionType.Passive, collisionGroup: ladderCollider });
     this.addTag("ladder");
   }
 }
