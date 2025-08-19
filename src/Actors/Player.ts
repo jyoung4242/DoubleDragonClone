@@ -57,11 +57,11 @@ const ladderAnimation = new Animation({
   frames: [
     {
       graphic: playerLadderSS.getSprite(0, 0),
-      duration: 100,
+      duration: 200,
     },
     {
       graphic: playerLadderSS.getSprite(1, 0),
-      duration: 100,
+      duration: 200,
     },
   ],
   strategy: AnimationStrategy.Loop,
@@ -423,54 +423,35 @@ export class Player extends Actor {
 
     //*******************************************
     //manage animations
+    // new theory, figure out which animation to play
+    // compare it to current animation, and if different change
     //*******************************************
-    if (this.oldFSMstate != currentState || this.oldJoyStickState != this.JoyStickState) {
-      this.oldJoyStickState = this.JoyStickState;
-      this.oldFSMstate = currentState as
-        | "idle"
-        | "walk"
-        | "attackStep1"
-        | "attackStep2"
-        | "attackStep3"
-        | "recovery"
-        | "ladderClimb"
-        | "knee";
 
-      if (currentState != "attackStep1" && currentState != "attackStep2" && currentState != "attackStep3" && currentState != "knee") {
-        const ladders = engine.currentScene.entities.filter(e => e.hasTag("ladder") && e instanceof Actor) as Actor[];
+    let maybeAnimationState:
+      | "idleLeft"
+      | "idleRight"
+      | "walkLeft"
+      | "walkRight"
+      | "attackStep1"
+      | "attackStep2"
+      | "attackStep3"
+      | "recovery"
+      | "ladder"
+      | "ladderIdle"
+      | "kneeRight"
+      | "kneeLeft"
+      | null = null;
 
-        console.log(ladders);
-        debugger;
-        console.log(this.collider.get()?.touching(ladders[0].collider.get()!));
-        console.log(this.collider.get()?.touching(ladders[1].collider.get()!));
+    console.log("ladder", this.isClimbingLadder);
+    console.log("joystick", this.isJoystickActive);
 
-        if (this.isJoystickActive) {
-          // poll for ladder collision
-
-          console.log("joystick active", currentState, this.isClimbingLadder);
-          switch (this.JoyStickState) {
-            case "up":
-            case "left":
-            case "right":
-            case "down":
-            case "upLeft":
-            case "upRight":
-            case "downLeft":
-            case "downRight":
-              if (this.isClimbingLadder) this.ac.set("ladder");
-              else this.ac.set(`walk${this.direction}`);
-              break;
-            case "idle":
-              if (this.isClimbingLadder) this.ac.set("ladder");
-              else this.ac.set(`idle${this.direction}`);
-          }
-        } else {
-          console.log("in idle", currentState, this.isClimbingLadder);
-
-          if (this.isClimbingLadder) this.ac.set("ladderIdle");
-          else this.ac.set(`idle${this.direction}`);
-        }
-      }
+    if (this.isClimbingLadder) {
+      if (this.isJoystickActive) maybeAnimationState = "ladder";
+      else maybeAnimationState = "ladderIdle";
+    } else {
+      // NOT ON LADDER :|
+      if (this.isJoystickActive) maybeAnimationState = `walk${this.direction}`;
+      else maybeAnimationState = `idle${this.direction}`;
     }
 
     //*******************************************
@@ -507,6 +488,16 @@ export class Player extends Actor {
           this.fsm.set("idle");
         }
       }
+    }
+
+    //get current animation state
+    let currentAnimationName = this.ac.currentName;
+
+    console.log("currentAnimationName", currentAnimationName);
+    console.log("maybeAnimationState", maybeAnimationState);
+
+    if (maybeAnimationState && currentAnimationName != maybeAnimationState) {
+      this.ac.set(maybeAnimationState);
     }
   }
 

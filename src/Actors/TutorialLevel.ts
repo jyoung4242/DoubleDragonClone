@@ -72,7 +72,7 @@ export class TutorialLevel extends Actor {
 class ladderChild extends Actor {
   name = "ladder";
   constructor(pos: Vector) {
-    super({ width: 25, height: 75, pos, collisionType: CollisionType.Passive, collisionGroup: ladderCollider });
+    super({ width: 25, height: 70, pos, collisionType: CollisionType.Passive, collisionGroup: ladderCollider });
     this.addTag("ladder");
   }
 }
